@@ -1,6 +1,9 @@
 package com.example.jpa.contoller;
 
 import com.example.jpa.model.Customer;
+import com.example.jpa.model.CustomerDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.jpa.service.*;
 
@@ -16,9 +19,10 @@ public class CustomerController {
    }
 
     @PostMapping("/post")
-    public Customer postCustomerData(@RequestBody Customer customer){
+    public ResponseEntity<Customer> postCustomerData(@RequestBody CustomerDTO customerDTO){
 
-        return customerService.dataPost(customer);
+        Customer customer = customerService.dataPost(customerDTO);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
     @GetMapping("/getAllData")
     public List<Customer> getListOfCustomerData(){
